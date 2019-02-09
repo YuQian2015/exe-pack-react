@@ -6,6 +6,7 @@ import {HashRouter as Router, Switch, Route, Link, Redirect} from 'react-router-
 import SignInPage from './page/SignInPage.jsx';
 import ExhibitionPage from './page/ExhibitionPage.jsx';
 import AnimePage from './page/AnimePage.jsx';
+import HomePage from './page/HomePage.jsx';
 
 import { Provider } from 'react-redux';
 import store from './store/store';
@@ -19,6 +20,7 @@ export default class App extends React.Component {
                         <Route exact path="/" render={() => (<Redirect to="/exhibition"/>)}/>
                         <Route exact path="/sign-in" component={SignInPage}/>
                         <Route exact path="/exhibition" component={ExhibitionPage}/>
+                        <Route exact path="/home" component={HomePage}/>
                         <Route exact path="/anime" component={AnimePage}/>
                     </Switch>
                 </Router>

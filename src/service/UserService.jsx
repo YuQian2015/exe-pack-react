@@ -4,13 +4,8 @@ import {CONFIG} from '../util/Config.jsx';
 class UserService {
     constructor() {}
     // 登录
-    signIn(params) {
-        return HttpService.post(`${CONFIG.apiUrl}/account/login.html`, params);
-    }
-
-    // 查询列表
-    findExhibitionList(params) {
-        return HttpService.post(`${CONFIG.apiUrl}/account/findExhibitionList.html`, params);
+    login(params) {
+        return HttpService.post(`${CONFIG.apiUrl}/api/v1/login`, params);
     }
 }
 

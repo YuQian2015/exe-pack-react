@@ -1,5 +1,5 @@
 // 从redux引入createStore，applyMiddleware，分别用来创建store和使用中间件
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 // 引入thunk中间件
 import thunk from 'redux-thunk';
 
@@ -22,7 +22,11 @@ const middleware = [thunk];
 //
 // Returns
 // (Store): An object that holds the complete state of your app. The only way to change its state is by dispatching actions. You may also subscribe to the changes to its state to update the UI.
-const store = createStore(rootReducer, initialState, applyMiddleware(...middleware));
+const store = createStore(rootReducer, initialState, compose(
+    applyMiddleware(...middleware),
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+);
 
 // 导出store
 export default store;

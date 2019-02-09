@@ -3,7 +3,7 @@ import LocalDB from 'local-db';
 const userCollection = new LocalDB('user');
 
 class HttpService {
-    Authorization: "";
+    Authorization;
     constructor() {
         this.getUserToekn();
     }
@@ -82,14 +82,6 @@ class HttpService {
                     const status = request.status;
                     if (status >= 200 && status < 300) {
                         const res = JSON.parse(request.responseText);
-                        this.Authorization = request.getResponseHeader("Authorization");
-                        if(this.Authorization) {
-                            userCollection.drop();
-                            userCollection.insert({
-                                time: new Date().getTime(),
-                                token: this.Authorization
-                            });
-                        }
                         resolve(res);
                         return
                     }

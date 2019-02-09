@@ -1,5 +1,8 @@
 export const en_US = {
-    'intl.signin.phone': "phone",
-    'intl.signin.account': "account",
-    'intl.signin.great': 'welcome to {city}'
+    'intl.input.userId.title': "输入密码登录系统",
+    'intl.input.userId.placeholder': "User ID",
+    'intl.input.password.title': "输入密码登录系统",
+    'intl.input.password.placeholder': "User password",
+    'intl.signin.great': 'welcome to {city}',
+    'intl.login': 'Login'
 };

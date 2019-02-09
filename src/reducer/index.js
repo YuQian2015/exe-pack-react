@@ -3,9 +3,11 @@ import { combineReducers } from 'redux';
 
 // 从各个reducer文件导入reducer
 import animeReducer from './animeReducer';
+import userReducer from './userReducer';
 
 // 导出reducer 并且为它们都设置一个命名，如：animeReducer命名为anime
 
 export default combineReducers({
-    anime: animeReducer
+    anime: animeReducer,
+    user: userReducer
 });

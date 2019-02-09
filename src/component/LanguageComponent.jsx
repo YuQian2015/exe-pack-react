@@ -1,44 +1,32 @@
 import React from 'react';
 
 import {LangContext} from '../context/LangContext.jsx' // 引入LangContext
+import {Menu, Dropdown, Icon} from 'antd';
 
 export default class LanguageComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showSelector: false
-        };
-        this.showLangSelector = this.showLangSelector.bind(this);
-    }
-    componentWillMount() {}
-
-    // 显示语言选择选项
-    showLangSelector() {
-        this.setState({
-            showSelector: true
-        })
     }
 
     render() {
 
-        const { showSelector } = this.state;
-
-        return <LangContext.Consumer>
+        const menu = <LangContext.Consumer>
             {context => (
-                <div>
-                    {
-                        showSelector
-                            ?<div>
-                                <div onClick={() => {context.changeLanguage('en-US')}}>英文</div>
-                                <div onClick={() => {context.changeLanguage('zh-CN')}}>中文</div>
-                            </div>
-                            : <div onClick={this.showLangSelector}>
-                                切换语言
-                            </div>
-                    }
-                </div>
+                <Menu>
+                    <Menu.Item onClick={() => {
+                        context.changeLanguage('en-US')
+                    }}>English</Menu.Item>
+                    <Menu.Item onClick={() => {
+                        context.changeLanguage('zh-CN')
+                    }}>中文</Menu.Item>
+                </Menu>
             )}
-        </LangContext.Consumer>
+        </LangContext.Consumer>;
 
+        return <Dropdown overlay={menu}>
+            <a className="ant-dropdown-link" style={{float: 'right'}}>
+                切换语言 <Icon type="down"/>
+            </a>
+        </Dropdown>
     }
 };
