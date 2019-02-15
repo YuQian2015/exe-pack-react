@@ -49,7 +49,7 @@ class HttpService {
                         }
                         return
                     }
-                    if (status == 403) {
+                    if (status == 401) {
                         window.location.replace("#/sign-in");
                         userCollection.drop();
                         reject()
@@ -77,7 +77,7 @@ class HttpService {
                         resolve(res);
                         return
                     }
-                    if (status == 403) {
+                    if (status == 401) {
                         window.location.replace("#/sign-in");
                         userCollection.drop();
                         reject();

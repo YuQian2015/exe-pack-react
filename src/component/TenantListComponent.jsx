@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import {Table, Button, Icon, Row, Col, AutoComplete} from 'antd';
 
+import {withRouter} from "react-router-dom"; // 用这个方法来包裹组件，可以控制路由的跳转
 const ButtonGroup = Button.Group;
 
 
@@ -109,6 +110,7 @@ class TenantListComponent extends React.Component {
         this.setList = this.setList.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.addTenant = this.addTenant.bind(this);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -163,6 +165,11 @@ class TenantListComponent extends React.Component {
         })
     }
 
+    // 添加租户
+    addTenant() {
+        this.props.history.push('add-tenant')
+    }
+
     render() {
         const {columns, pagination, tenantType, tenantListDataSource, autoCompleteDataSource} = this.state;
         return <div className="TenantListComponent">
@@ -189,7 +196,7 @@ class TenantListComponent extends React.Component {
                     </ButtonGroup>
                 </Col>
                 <Col span={4}>
-                    <Button style={{float: 'right'}} type="primary">添加租户</Button>
+                    <Button style={{float: 'right'}} type="primary" onClick={this.addTenant}>添加租户</Button>
                 </Col>
             </Row>
             <br/>
@@ -211,4 +218,4 @@ const mapStateToProps = state => ({
     tenantList: state.tenant.tenantList
 });
 
-export default connect(mapStateToProps, {getTenantList})(TenantListComponent);
+export default connect(mapStateToProps, {getTenantList})(withRouter(TenantListComponent));
