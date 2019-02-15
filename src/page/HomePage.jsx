@@ -3,24 +3,24 @@
  */
 import React from 'react';
 
-import PageContainer from '../container/PageContainer.jsx'; // 引入页面的容器
-
 import { Breadcrumb } from 'antd';
+
+import PageContainer from '../container/PageContainer.jsx'; // 引入页面的容器
+import TenantListComponent from '../component/TenantListComponent.jsx';
 
 export default class HomePage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+        }
     }
 
     // 组件将要加载
     componentWillMount() {
-
     }
 
     // 组件挂载完毕
     componentDidMount() {
-
     }
 
     render() {
@@ -30,7 +30,9 @@ export default class HomePage extends React.Component {
                 <Breadcrumb.Item>List</Breadcrumb.Item>
                 <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
-            <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+            <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+                <TenantListComponent />
+            </div>
         </div>;
          return <PageContainer page={page} />
     }

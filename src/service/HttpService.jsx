@@ -11,7 +11,7 @@ class HttpService {
     getUserToekn() {
         const user = userCollection.query({});
         if (user.length) {
-            this.Authorization = user[0].token;
+            this.Authorization = `Bearer ${user[0].token}`;
         }
     }
 
@@ -32,7 +32,7 @@ class HttpService {
                 url += "?" + query;
             }
             request.open("GET", url, true);
-            request.withCredentials = true;
+            // request.withCredentials = true;
             if (this.Authorization) {
                 request.setRequestHeader("Authorization", this.Authorization);
             }
@@ -43,14 +43,6 @@ class HttpService {
                     if (status >= 200 && status < 300) {
                         try {
                             const res = JSON.parse(request.responseText);
-                            this.Authorization = request.getResponseHeader("Authorization");
-                            if(this.Authorization) {
-                                userCollection.drop();
-                                userCollection.insert({
-                                    time: new Date().getTime(),
-                                    token: this.Authorization
-                                });
-                            }
                             resolve(res);
                         } catch (e) {
                             console.error(e);
