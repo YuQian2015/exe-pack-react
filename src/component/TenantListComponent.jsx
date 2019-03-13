@@ -214,7 +214,7 @@ TenantListComponent.propTypes = {
 
 // 创建一个方法将redux的state转换成props
 const mapStateToProps = state => ({
-    // 这里使用的state.user 是在 reducer/index.js 文件中的 根reducer里面定义的
+    // 这里使用的state.tenant 是在 reducer/index.js 文件中的 根reducer里面定义的
     tenantList: state.tenant.tenantList
 });
 

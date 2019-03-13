@@ -2,8 +2,19 @@
  * Created by YuQian on 2/16/2019.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class PackListPage extends React.Component {
+import PageContainer from '../container/PageContainer.jsx'; // 引入页面的容器
+
+import PackItemComponent from '../component/PackItemComponent.jsx';
+
+
+// 引入connect来使被provider包裹的react组件连接到redux的store
+import { connect } from 'react-redux';
+// 引入请求数据的action
+import { getPackList } from '../action/packAction';
+
+class PackListPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -11,7 +22,7 @@ export default class PackListPage extends React.Component {
 
     // 组件将要加载
     componentWillMount() {
-
+        this.props.getPackList()
     }
 
     // 组件挂载完毕
@@ -20,7 +31,29 @@ export default class PackListPage extends React.Component {
     }
 
     render() {
+        const { packList } = this.props;
 
-        return <div className="PackListPage">123123</div>
+        let page = <div className="PackListPage">
+            {
+                packList.map(pack => <PackItemComponent data={pack} key={pack._id} />)
+            }
+        </div>;
+
+        return <PageContainer page={page} />
     }
 }
+
+// 定义PropTypes
+PackListPage.propTypes = {
+    getPackList: PropTypes.func.isRequired,
+    packList: PropTypes.array.isRequired
+};
+
+
+// 创建一个方法将redux的state转换成props
+const mapStateToProps = state => ({
+    // 这里使用的state.pack 是在 reducer/index.js 文件中的 根reducer里面定义的
+    packList: state.pack.packList
+});
+
+export default connect(mapStateToProps, { getPackList })(PackListPage);

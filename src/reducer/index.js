@@ -5,11 +5,13 @@ import { combineReducers } from 'redux';
 import animeReducer from './animeReducer';
 import userReducer from './userReducer';
 import tenantReducer from './tenantReducer';
+import packReducer from './packReducer';
 
 // 导出reducer 并且为它们都设置一个命名，如：animeReducer命名为anime
 
 export default combineReducers({
     anime: animeReducer,
     user: userReducer,
-    tenant: tenantReducer
+    tenant: tenantReducer,
+    pack: packReducer
 });

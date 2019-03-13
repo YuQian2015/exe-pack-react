@@ -7,3 +7,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 
 // 租户
 export const GET_TENANTS = 'GET_TENANTS';
+
+
+// 打包
+export const GET_PACKS = 'GET_PACKS';

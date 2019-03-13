@@ -9,5 +9,5 @@ class TenantService {
     }
 }
 
-const User = new TenantService();
-export default User;
+const Tenant = new TenantService();
+export default Tenant;
