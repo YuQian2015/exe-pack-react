@@ -7,6 +7,7 @@ import SignInPage from './page/SignInPage.jsx';
 import AnimePage from './page/AnimePage.jsx';
 import HomePage from './page/HomePage.jsx';
 import AddTenantPage from './page/AddTenantPage.jsx';
+import PackListPage from "./page/PackListPage.jsx";
 
 import { Provider } from 'react-redux';
 import store from './store/store';
@@ -21,6 +22,7 @@ export default class App extends React.Component {
                         <Route exact path="/sign-in" component={SignInPage}/>
                         <Route exact path="/add-tenant" component={AddTenantPage}/>
                         <Route exact path="/home" component={HomePage}/>
+                        <Route exact path="/pack-list" component={PackListPage}/>
                         <Route exact path="/anime" component={AnimePage}/>
                     </Switch>
                 </Router>

@@ -32,6 +32,7 @@ class PageContainer extends React.Component {
         this.state = {
             language: navigator.language
         };
+        this.goTo = this.goTo.bind(this);
     }
 
     // 组件将要加载
@@ -68,6 +69,9 @@ class PageContainer extends React.Component {
         })
     }
 
+    goTo(route) {
+        this.props.history.push(route)
+    }
 
     render() {
         let {page, noFooter, noHeader} = this.props;
@@ -84,7 +88,7 @@ class PageContainer extends React.Component {
                                     mode="horizontal"
                                     style={{lineHeight: '64px'}}
                                 >
-                                    <Menu.Item key="1">打包列表</Menu.Item>
+                                    <Menu.Item onClick={ () => this.goTo('pack-list')} key="1">打包列表</Menu.Item>
                                     <Menu.Item key="2">文件浏览</Menu.Item>
                                     <Menu.Item key="3">UI</Menu.Item>
                                     <Menu.Item key="4">用户/权限</Menu.Item>

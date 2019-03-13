@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Form, Icon, Input, Button, Row, Col,
+    Form, Icon, Switch, Input, Button, Row, Col,
 } from 'antd';
 import {withRouter} from "react-router-dom"; // 用这个方法来包裹组件，可以控制路由的跳转
 
@@ -29,12 +29,17 @@ class AddTenantComponent extends React.Component {
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched,} = this.props.form;
 
+        const formItemLayout = {
+            labelCol: { span: 6 },
+            wrapperCol: { span: 14 },
+        };
+
         const tenantIdError = isFieldTouched('tenantId') && getFieldError('tenantId');
         const appNameError = isFieldTouched('appName') && getFieldError('appName');
         const tenantNameError = isFieldTouched('tenantName') && getFieldError('tenantName');
         return <div className="TenantListComponent">
-            <Form layout="inline" onSubmit={this.handleSubmit}>
-                <p>租户基本信息</p>
+            <Form onSubmit={this.handleSubmit} className="tenant-add-form">
+                <h5>租户基础信息（必填）</h5>
                 <Row gutter={24}>
                     <Col span={6} >
                         <Form.Item validateStatus={tenantIdError ? 'error' : ''} help={tenantIdError || ''} >
@@ -63,6 +68,26 @@ class AddTenantComponent extends React.Component {
                         </Form.Item>
                     </Col>
                 </Row>
+
+                <Form.Item
+                    {...formItemLayout}
+                    label="该租户是否是通用包租户"
+                >
+                    {getFieldDecorator('switch', { valuePropName: 'checked' })(
+                        <Switch />
+                    )}
+                </Form.Item>
+                <Form.Item
+                    {...formItemLayout}
+                    label="是否有定制"
+                >
+                    {getFieldDecorator('switch', { valuePropName: 'checked' })(
+                        <Switch />
+                    )}
+                </Form.Item>
+
+                <h5>租户版本（必填）</h5>
+                <h5>租户地址信息（选填）</h5>
                 <Form.Item>
                     <Button
                         type="primary"
