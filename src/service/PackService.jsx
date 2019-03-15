@@ -4,7 +4,7 @@ import {CONFIG} from '../util/Config.jsx';
 class PackService {
     constructor() {}
     // 获取租户列表
-    getPackList(params) {
+    getPackList(params = {}) {
         return HttpService.get(`${CONFIG.apiUrl}/api/v1/packs`, params);
     }
 }

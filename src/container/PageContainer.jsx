@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-import {Layout, Menu, Avatar} from 'antd';
+import {Layout, Menu, Avatar, BackTop} from 'antd';
 
 const {Header, Content, Footer} = Layout;
 
@@ -99,6 +99,7 @@ class PageContainer extends React.Component {
                     }
                     <Content style={{padding: '0 50px'}}>
                         {page ? page : null}
+                        <BackTop />
                     </Content>
                     {noFooter ? null :
                         <Footer style={{textAlign: 'center'}}>

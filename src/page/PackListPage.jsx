@@ -8,6 +8,8 @@ import PageContainer from '../container/PageContainer.jsx'; // 引入页面的�
 
 import PackItemComponent from '../component/PackItemComponent.jsx';
 
+import QueueAnim from 'rc-queue-anim';
+
 
 // 引入connect来使被provider包裹的react组件连接到redux的store
 import { connect } from 'react-redux';
@@ -22,7 +24,9 @@ class PackListPage extends React.Component {
 
     // 组件将要加载
     componentWillMount() {
-        this.props.getPackList()
+        this.props.getPackList({
+            complete: false
+        })
     }
 
     // 组件挂载完毕
@@ -34,9 +38,11 @@ class PackListPage extends React.Component {
         const { packList } = this.props;
 
         let page = <div className="PackListPage">
-            {
-                packList.map(pack => <PackItemComponent data={pack} key={pack._id} />)
-            }
+            <QueueAnim type='bottom'>
+                {
+                    packList.map(pack => <PackItemComponent data={pack} key={pack._id} />)
+                }
+            </QueueAnim>
         </div>;
 
         return <PageContainer page={page} />
