@@ -1,0 +1,23 @@
+{
+  "object": "value",
+  "document": {
+    "object": "document",
+    "data": {},
+    "nodes": [
+      {
+        "object": "block",
+        "type": "paragraph",
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "text": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

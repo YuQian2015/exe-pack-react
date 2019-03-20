@@ -1,0 +1,23 @@
+module.exports = {
+    PARAGRAPH: 'paragraph',
+    HEADING_1: 'heading_1',
+    HEADING_2: 'heading_2',
+    HEADING_3: 'heading_3',
+    HEADING_4: 'heading_4',
+    HEADING_5: 'heading_5',
+    HEADING_6: 'heading_6',
+    CODE_BLOCK: 'code_block',
+    CODE_LINE: 'code_line',
+    HR: 'hr',
+    OL_LIST: 'ol_list',
+    UL_LIST: 'ul_list',
+    LIST_ITEM: 'list_item',
+    CHECK_LIST: 'check_list',
+    CHECK_LIST_ITEM: 'check_list_item',
+    BLOCKQUOTE: 'blockquote',
+    TABLE: 'table',
+    TABLE_ROW: 'table_row',
+    TABLE_CELL: 'table_cell',
+    IMAGE: 'image',
+    VIDEO: 'video'
+};

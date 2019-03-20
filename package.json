@@ -33,6 +33,7 @@
   "dependencies": {
     "antd": "^3.13.2",
     "crypto-js": "^3.1.9-1",
+    "immutable": "^4.0.0-rc.12",
     "local-db": "^2.0.0",
     "rc-queue-anim": "^1.6.12",
     "react": "^16.6.3",
@@ -42,6 +43,8 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "slate": "^0.44.12",
+    "slate-react": "^0.21.18"
   }
 }
