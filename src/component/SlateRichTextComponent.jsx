@@ -5,7 +5,8 @@ import React from 'react';
 import { Editor } from 'slate-react';
 import { Block, Value } from 'slate';
 
-import initialData from './slate/initialData.json'
+import initialData from './slate/initialData.json';
+import schema from './slate/schema/Index.jsx'
 
 import renderMark from './slate/renderer/RenderMark.jsx';
 import renderNode from './slate/renderer/RenderNode.jsx';
@@ -45,27 +46,6 @@ const plugins = [
 const existingValue = JSON.parse(localStorage.getItem('content'));
 // 构建初始状态…
 const initialValue = Value.fromJSON(existingValue || initialData);
-
-
-const schema = {
-    document: {
-        last: { type: 'paragraph' },
-        normalize: (editor, { code, node, child }) => {
-            switch (code) {
-                case 'last_child_type_invalid': {
-                    const paragraph = Block.create('paragraph');
-                    return editor.insertNodeByKey(node.key, node.nodes.size, paragraph)
-                }
-            }
-        },
-    },
-    blocks: {
-        image: {
-            isVoid: false,
-        },
-    },
-}
-
 
 
 export default class SlateRichTextComponent extends React.Component {
@@ -124,8 +104,10 @@ export default class SlateRichTextComponent extends React.Component {
                 <div className="toolbar-container">
                     <Navbar editor={editor} onChange={value => this.onChange(value)} />
                 </div>
-                <div className="input-area">
-                    {children}
+                <div className="input-container">
+                    <div className="input-area">
+                        {children}
+                    </div>
                 </div>
             </div>
         )

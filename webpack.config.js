@@ -34,8 +34,24 @@ module.exports = {
                     // fallback:编译后用什么loader来提取css文件
                     // publicfile:用来覆盖项目publicPath,生成该css文件的文件路径
                     fallback: 'style-loader',
-                    use: ['css-loader', 'less-loader']
-                })
+                    // use: ['css-loader', 'less-loader']
+                    use: [
+                        {
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [
+                                    require('autoprefixer')({browsers: ['last 5 versions']})
+                                ]
+                            }
+                        },
+                        {
+                            loader: 'less-loader'
+                        }
+                    ]
+                }),
                 //[
                 // {
                 //   loader: "style-loader" // creates style nodes from JS strings

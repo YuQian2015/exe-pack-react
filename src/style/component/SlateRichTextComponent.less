@@ -6,15 +6,41 @@
   .toolbar-container {
     padding-bottom: 10px;
     border-bottom: 1px solid #d9d9d9;
+    text-align: center;
     .toolbar {
       display: inline-block;
+      margin-left: 4px;
     }
   }
-  .input-area {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #d9d9d9;
+  .input-container {
+    overflow: auto;
+    background-color: #f8f8f8;
+    color: black;
+    font-size: 16px;
+    max-height: 700px;
+    line-height: 1.3333333333333333;
+    font-family: "PingFang SC","Microsoft YaHei","黑体","宋体",sans-serif;
+    .input-area {
+      overflow: hidden;
+      border: 1px solid #e3e3e3;
+      box-shadow: 0 0 10px 0 rgba(0,0,0,.06);
+      width: 794px;
+      min-height: 995px;
+      margin: 10px auto;
+      padding: 80px 60px;
+      background: #FFFFFF;
+      img.selected {
+        box-shadow: 0 0 0 2px blue;
+      }
+    }
+  }
+
+  code {
+    margin: 0 2px;
+    background: #eaddcc;
+    color: #dd2d2d;
+    font-size: 90%;
+    padding: 2px 4px;
     border-radius: 4px;
-    min-height: 100px;
   }
 }

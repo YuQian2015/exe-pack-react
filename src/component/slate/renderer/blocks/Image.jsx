@@ -4,11 +4,13 @@
 import React from 'react';
 
 class Image extends React.PureComponent {
-   render() {
-      return (
-          <div><img {...this.props} /><br /></div>
 
-      )
-   }
+    render() {
+        const src = this.props.node.data.get('src');
+        return (<img alt="" className={
+            this.props.isFocused ? "selected" : ""
+        } src={src}/>)
+    }
 }
+
 export default Image

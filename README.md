@@ -1743,13 +1743,37 @@ export default connect(mapStateToProps, { fetchAnime })(AnimePage);
 
 
 
+在webpack中使用postcss-loader，autoprefixer 
+
+npm install --save-dev postcss-loader autoprefixer
 
 
 
-
-
-
-
+{
+                test: /\.less$/,
+                use: ExtractTextPlugin.extract({
+                    // use:指需要什么样的loader去编译文件,这里由于源文件是.css所以选择css-loader
+                    // fallback:编译后用什么loader来提取css文件
+                    // publicfile:用来覆盖项目publicPath,生成该css文件的文件路径
+                    fallback: 'style-loader',
+                    // use: ['css-loader', 'less-loader']
+                    use: [
+                        {
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [
+                                    require('autoprefixer')({browsers: ['last 5 versions']})
+                                ]
+                            }
+                        },
+                        {
+                            loader: 'less-loader'
+                        }
+                    ]
+                }
 
 
 
