@@ -2,7 +2,7 @@
  * Created by YuQian on 3/21/2019.
  */
 import React from 'react';
-import {Tooltip, Button, Icon, Modal, Input} from 'antd';
+import {Tooltip, Button, Icon, Modal, Input, message} from 'antd';
 import QRCodeComponent from '../../QRCodeComponent.jsx';
 import LocalDB from 'local-db';
 const exeUserCollection = new LocalDB('exe-user');
@@ -68,11 +68,11 @@ class Publish extends React.Component {
                 },
                 success: function (result, status, req) {
                     if(result && result.success) {
-                        console.log(result)
+                        message.success('文章发布成功');
                     }
                 },
                 error: function (req, error) {
-                    alert(error.msg)
+                    message.error(error.msg);
                 }
 
             });

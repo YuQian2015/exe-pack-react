@@ -4,22 +4,27 @@
 import React from 'react';
 import BLOCKS from '../constants/Blocks.jsx';
 import { hasBlock } from '../utils/HasBlock.jsx';
-import {Tooltip, Button} from 'antd'
+import {Tooltip, Button} from 'antd';
+
+const ButtonGroup = Button.Group;
 
 function Heading(props) {
-    const {onChange, editor, level} = props;
-    const type = BLOCKS[`HEADING_${level}`];
-    const isActive = hasBlock(editor, type);
-    const onClickBlock = (e) => {
+    const {onChange, editor, header} = props;
+    const onClickBlock = (e, level) => {
         e.preventDefault();
-        const change = editor.command('setBlocks', isActive ? BLOCKS.PARAGRAPH : type);
+        const change = editor.command('setBlocks', hasBlock(editor, BLOCKS[`HEADING_${level}`]) ? BLOCKS.PARAGRAPH : BLOCKS[`HEADING_${level}`]);
         onChange(change)
     };
     return (
-        <div className='toolbar' onMouseDown={onClickBlock}>
-            <Tooltip title={`标题${level}`}>
-                <Button size="small" type={isActive ? 'primary' : ''}>{`H${level}`}</Button>
-            </Tooltip>
+        <div className='toolbar'>
+            <ButtonGroup>
+                {
+                    header.map(i => <Tooltip key={i} title={"标题"+i}>
+                        <Button onMouseDown={(e) => onClickBlock(e, i)} size="small"
+                                type={hasBlock(editor, BLOCKS[`HEADING_${i}`]) ? 'primary' : ''}>H{i}</Button>
+                    </Tooltip>)
+                }
+            </ButtonGroup>
         </div>
     )
 }

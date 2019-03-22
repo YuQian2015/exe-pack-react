@@ -12,6 +12,8 @@ import Code from "./icons/Code.jsx";
 import Heading from "./icons/Heading.jsx";
 import OlList from "./icons/OlList.jsx";
 import UlList from "./icons/UlList.jsx";
+import Align from "./icons/Align.jsx";
+
 import Image from "./icons/Image.jsx";
 import Publish from "./icons/Publish.jsx";
 
@@ -32,12 +34,9 @@ export default class Navbar extends React.Component {
             <Underline onChange={onChange} editor={editor} />
             <Code onChange={onChange} editor={editor} />
 
-            <Heading level={1} onChange={onChange} editor={editor} />
-            <Heading level={2} onChange={onChange} editor={editor} />
-            <Heading level={3} onChange={onChange} editor={editor} />
-            <Heading level={4} onChange={onChange} editor={editor} />
-            <Heading level={5} onChange={onChange} editor={editor} />
-            <Heading level={6} onChange={onChange} editor={editor} />
+            <Align onChange={onChange} editor={editor} />
+
+            <Heading level={1} onChange={onChange} editor={editor} header={[1,2,3,4,5,6]} />
 
             <OlList onChange={onChange} editor={editor}/>
             <UlList onChange={onChange} editor={editor}/>
