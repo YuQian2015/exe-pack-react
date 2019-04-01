@@ -36,6 +36,7 @@ class Publish extends React.Component {
 
     onLogin(data) {
         exeUserCollection.drop();
+        console.log(data)
         exeUserCollection.insert(data);
         this.setState({
             login: true,
