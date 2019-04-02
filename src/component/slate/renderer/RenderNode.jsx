@@ -71,7 +71,7 @@ const renderNode = (props, editor, next) => {
             return <ol {...attributes}>{children}</ol>;
         case BLOCKS.LIST_ITEM:
             return <li {...attributes}>{children}</li>;
-        case 'image':
+        case BLOCKS.IMAGE:
             return <Image {...props} />;
         default:
             return next()

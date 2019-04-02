@@ -11,6 +11,8 @@ const ButtonGroup = Button.Group;
 function Heading(props) {
     const {onChange, editor, header} = props;
     const onClickBlock = (e, level) => {
+        let isImage = editor.value.blocks.some(block => block.data.get('src')); // 图片情况
+        if(isImage) return;  // 图片不能添加字号 否则图片会消失
         e.preventDefault();
         const change = editor.command('setBlocks', hasBlock(editor, BLOCKS[`HEADING_${level}`]) ? BLOCKS.PARAGRAPH : BLOCKS[`HEADING_${level}`]);
         onChange(change)

@@ -11,10 +11,22 @@ function Align(props) {
     const isLeftActive = editor.value.blocks.some(block => block.get('data').get('align') === 'left');
     const isCenterActive = editor.value.blocks.some(block => block.get('data').get('align') === 'center');
     const isRightActive = editor.value.blocks.some(block => block.get('data').get('align') === 'right');
+
+    let getParams = function (type) { // 检查是否包含指定属性
+        let result = '';
+        editor.value.blocks.some(block => {
+            let res = block.data.get(type);
+            res && (result = res);
+        });
+        return result;
+    }
+
     const onClickBlock = (e, dir) => {
+        let imageUrl = getParams('src');
+        
         e.preventDefault();
         onChange(editor.setBlocks({
-            data: {align: dir}
+            data: {align: dir, src: imageUrl || ''}
         }))
     };
     return <div className='toolbar'>

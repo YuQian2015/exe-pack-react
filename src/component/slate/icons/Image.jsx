@@ -2,8 +2,9 @@
  * Created by YuQian on 3/20/2019.
  */
 import React from 'react';
-import {Tooltip, Button, Icon, Modal, Input, Radio, Tabs  } from 'antd';
+import {Tooltip, Button, Icon, Modal, Input, Radio, Tabs, Alert  } from 'antd';
 import ImgUploadComponent from '../image/ImgUpload.jsx';
+
 const exeUserCollection = new LocalDB('exe-user');
 
 const RadioGroup = Radio.Group;
@@ -13,64 +14,87 @@ class Image extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
-            src: '',
+            showModal: false,
+            tabTypes: 'img',
             radioValue: 'center',
             urlValue:'',
             showImage: false,
+            imgList: [],
+            child: null
         };
-        this.showModal = this.showModal.bind(this);
+        this.onInitModal = this.onInitModal.bind(this);
         this.imgSave = this.imgSave.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
         this.insertImage = this.insertImage.bind(this);
-        this.radioChange = this.radioChange.bind(this);
         this.imgPreview = this.imgPreview.bind(this);
         this.urlEmpty = this.urlEmpty.bind(this);
+        this.insertImg = this.insertImg.bind(this);
+        this.addImgList = this.addImgList.bind(this);
+        this.imgUpload = this.imgUpload.bind(this);
+        this.tabsChange = this.tabsChange.bind(this);
     }
 
-    showModal() {
-        this.setState({
-            visible: true,
+    onInitModal () {
+        this.setState({ 
+            showModal: false,
+            tabTypes: 'img',
+            radioValue: 'center',
+            urlValue:'',
+            showImage: false,
+            imgList: []
         });
+        this.state.child.clearImgList();  // 清空图片选择的内容
     }
 
-    insertImage(editor, src, target) {
+    // 获取图片上传组件ref
+    imgUpload (ref) {  
+        this.setState({child: ref})
+    }
+
+    // 添加单张图片
+    insertImage (editor, src, target) { 
         if (target) {
             editor.select(target)
         }
         editor.insertBlock({
             type: 'image',
-            data: { src },
+            data: { src, align:this.state.radioValue },
         })
     }
 
-    imgSave(e) {
-        const { src } = this.state;
-        if(src) {
-            this.props.editor.command(this.insertImage, src);
-            this.setState({
-                visible: false,
-            });
+    // 添加多张图片
+    addImgList (data){
+        this.setState({imgList: data});
+    }
+
+    // 插入图片
+    insertImg (){
+        let {tabTypes} = this.state;
+        if(tabTypes == 'url') {
+            const { urlValue } = this.state;
+            this.props.editor.command(this.insertImage, urlValue);
+        }else if(tabTypes == 'img'){
+            this.state.imgList.map(item => {
+                let currentUrl = '';
+                if(item.url){
+                    currentUrl = item.url;
+                }else if(item.response.success && item.response.data.url){
+                    currentUrl = item.response.data.url;
+                }
+                this.props.editor.command(this.insertImage, currentUrl)
+            })
         }
+        this.onInitModal(); // 图片添加成功后 需要清除原有状态
     }
-
-    handleCancel(e) {
-        this.setState({
-            visible: false,
-        });
-    }
-
-    // 图片对齐方式选择
-    radioChange (e) {
-        console.log(e.target.value)
-        this.setState({
-            radioValue: e.target.value,
-        })
+    
+    // 添加图片操作
+    imgSave (e) {
+        this.insertImg();
+        this.onInitModal();
     }
 
     // 标签切换
     tabsChange (key){
-        console.log(key)
+        this.setState({tabTypes: key});
     }
 
     // URL图片预览
@@ -92,37 +116,39 @@ class Image extends React.Component {
     urlEmpty () {
         this.urlInput.focus()
         this.setState({urlValue: '', showImage: false})
-    }
-
+    } 
 
     render() {
-        const { src, visible, urlValue, showImage } = this.state;
+        const { showModal, urlValue, showImage } = this.state;
         const suffix = urlValue ? <Icon type="close-circle" onClick={this.urlEmpty} /> : <span />;
         const query = exeUserCollection.query();
         const user = query && query[0].ticket;
-        console.log(user)
+        const alertMessage = "图片要求：小于 2 MB，类型为 JPG。";
         return (
             <div className='toolbar' >
-                <div onClick={this.showModal}>
+                <div onClick={e => {this.setState({showModal: true})}}>
                     <Tooltip title="插入图片">
                         <Button size="small"><Icon type="picture" /></Button>
                     </Tooltip>
                 </div>
                 <Modal
-                    title="选择图片"
-                    visible={visible}
+                    title="添加图片"
+                    visible={showModal}
                     onOk={this.imgSave}
-                    onCancel={this.handleCancel}
-                    okText="保存" cancelText="取消"
-                >
+                    onCancel={e => {this.setState({showModal: false})}}
+                    okText="添加" cancelText="取消"
+                >                        
+                    <Alert message={alertMessage} type="warning" closable/>
                     <Tabs defaultActiveKey="img" onChange={this.tabsChange}>
+
                         <TabPane tab="选择图片" key="img">
-                            <RadioGroup onChange={this.radioChange} value={this.state.radioValue}>
+                            <RadioGroup onChange= {e => {this.setState({radioValue: e.target.value})}} value={this.state.radioValue}>
+                                图片对齐方式：
                                 <Radio value={'left'}>左对齐</Radio>
                                 <Radio value={'center'}>居中对齐</Radio>
                                 <Radio value={'right'}>右对齐</Radio>
                             </RadioGroup>
-                            <ImgUploadComponent />
+                            <ImgUploadComponent onRef={this.imgUpload} addImgList={this.addImgList}/>
                         </TabPane>
                         <TabPane className="icon-image-url" tab="选择URL" key="url">
                             <Input.Search
