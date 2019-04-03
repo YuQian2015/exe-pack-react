@@ -33,17 +33,18 @@ export default class ImgUploadComponent extends React.Component{
     }
 
     isLogin(){
-      const query = exeUserCollection.query();
-      const user  = query && query[0] && query[0].ticket;
-      if(user){
-        this.setState({ token : user })
-      }else{
-        Modal.error({
-          title: '上传失败',
-          content: '请先登录帐号！',
-        });
-        return;
-      }
+        const query = exeUserCollection.query();
+        const user  = query && query[0] && query[0].ticket;
+        if(user){
+          this.setState({ token : user });
+          return true;
+        }else{
+          Modal.error({
+            title: '上传失败',
+            content: '请先登录帐号！',
+          });
+          return false;
+        }
     }
 
     imgCancel(){
@@ -58,8 +59,11 @@ export default class ImgUploadComponent extends React.Component{
     }
   
     imgChange ({ fileList }){
-      this.setState({ fileList })
-      this.addImgList(fileList);
+      const status = this.isLogin();
+      if(status){
+        this.setState({ fileList })
+        this.addImgList(fileList);
+      }
     }
 
     // 图片上传前的设置
@@ -111,7 +115,7 @@ export default class ImgUploadComponent extends React.Component{
                     {fileList.length >= imageLength ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.imgCancel}>
-                    <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                    <img style={{ width: '100%' }} src={previewImage} />
                 </Modal>
             </div>
         );

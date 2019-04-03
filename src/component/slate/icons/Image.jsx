@@ -91,7 +91,7 @@ class Image extends React.Component {
                 let currentUrl = '';
                 if(item.url){
                     currentUrl = item.url;
-                }else if(item.response.success && item.response.data.url){
+                }else if(item.response && item.response.success && item.response.data.url){
                     currentUrl = item.response.data.url;
                 }
                 this.props.editor.command(this.insertImage, currentUrl)
@@ -103,10 +103,7 @@ class Image extends React.Component {
     // 添加图片操作
     imgSave (e) {
         const status = this.isLogin();
-        if(status){
-            this.insertImg();
-            this.onInitModal();
-        }
+        status && this.insertImg();
     }
 
     // 标签切换

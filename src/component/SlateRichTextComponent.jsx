@@ -116,6 +116,7 @@ export default class SlateRichTextComponent extends React.Component {
         const { value } = this.state;
         return  <div className="SlateRichTextComponent">
             <Editor
+                autoFocus={true}
                 value={value}
                 onChange={this.onChange}
                 placeholder="请输入内容"
