@@ -13,22 +13,39 @@ export default class ImgUploadComponent extends React.Component{
             previewVisible: false,
             previewImage: '',
             fileList: [],
+            token: ''
         };
         this.imgCancel = this.imgCancel.bind(this);
         this.imgPreview = this.imgPreview.bind(this);
         this.imgChange = this.imgChange.bind(this);
         this.imgBeforeUpload = this.imgBeforeUpload.bind(this);
         this.addImgList = this.addImgList.bind(this);
+        this.isLogin = this.isLogin.bind(this);
     }
 
     // 组件将要加载
     componentWillMount() {
-
+      this.isLogin();
     }
     componentDidMount(){
       //必须在这里声明，所以 ref 回调可以引用它
       this.props.onRef(this)
     }
+
+    isLogin(){
+      const query = exeUserCollection.query();
+      const user  = query && query[0] && query[0].ticket;
+      if(user){
+        this.setState({ token : user })
+      }else{
+        Modal.error({
+          title: '上传失败',
+          content: '请先登录帐号！',
+        });
+        return;
+      }
+    }
+
     imgCancel(){
         this.setState({ previewVisible: false })
     }
@@ -69,10 +86,8 @@ export default class ImgUploadComponent extends React.Component{
     }
 
     render() {
-        const { previewVisible, previewImage, fileList } = this.state;
+        const { previewVisible, previewImage, fileList, token } = this.state;
         const imageLength = 9; // 最多上传图片数量
-        const query = exeUserCollection.query();
-        const user  = query && query[0].ticket;
         const imgPostUrl = CONFIG.imageUrl + '/api/file/image?prefix=richtext';
         const uploadButton = (
           <div>
@@ -83,9 +98,7 @@ export default class ImgUploadComponent extends React.Component{
         const props = {
           action: imgPostUrl,
           // customRequest: this.postImage,
-          headers: {
-            token: query && query[0].ticket
-          },
+          headers: { token },
           listType: "picture-card",
           fileList: fileList,
           beforeUpload: this.imgBeforeUpload,

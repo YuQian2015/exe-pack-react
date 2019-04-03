@@ -45,6 +45,21 @@ class Image extends React.Component {
         this.state.child.clearImgList();  // 清空图片选择的内容
     }
 
+    isLogin(){
+        const query = exeUserCollection.query();
+        const user  = query && query[0] && query[0].ticket;
+        if(user){
+          this.setState({ token : user });
+          return true;
+        }else{
+          Modal.error({
+            title: '上传失败',
+            content: '请先登录帐号！',
+          });
+          return false;
+        }
+    }
+
     // 获取图片上传组件ref
     imgUpload (ref) {  
         this.setState({child: ref})
@@ -70,8 +85,7 @@ class Image extends React.Component {
     insertImg (){
         let {tabTypes} = this.state;
         if(tabTypes == 'url') {
-            const { urlValue } = this.state;
-            this.props.editor.command(this.insertImage, urlValue);
+            this.props.editor.command(this.insertImage, this.state.urlValue);
         }else if(tabTypes == 'img'){
             this.state.imgList.map(item => {
                 let currentUrl = '';
@@ -88,8 +102,11 @@ class Image extends React.Component {
     
     // 添加图片操作
     imgSave (e) {
-        this.insertImg();
-        this.onInitModal();
+        const status = this.isLogin();
+        if(status){
+            this.insertImg();
+            this.onInitModal();
+        }
     }
 
     // 标签切换
@@ -114,15 +131,13 @@ class Image extends React.Component {
 
     // 清除URL输入框内容
     urlEmpty () {
-        this.urlInput.focus()
-        this.setState({urlValue: '', showImage: false})
+        this.urlInput.focus();
+        this.setState({urlValue: '', showImage: false});
     } 
 
     render() {
         const { showModal, urlValue, showImage } = this.state;
         const suffix = urlValue ? <Icon type="close-circle" onClick={this.urlEmpty} /> : <span />;
-        const query = exeUserCollection.query();
-        const user = query && query[0].ticket;
         const alertMessage = "图片要求：小于 2 MB，类型为 JPG。";
         return (
             <div className='toolbar' >

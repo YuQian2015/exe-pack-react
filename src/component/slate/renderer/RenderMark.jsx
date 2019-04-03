@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import MARKS from '../constants/Marks.jsx';
+import TextColor from './blocks/Textcolor.jsx';
 // Add a `renderMark` method to render marks.
 const renderMark = (props, editor, next) => {
     const { children, mark } = props;
@@ -19,6 +20,8 @@ const renderMark = (props, editor, next) => {
             return <code>{children}</code>;
         case MARKS.HIGHLIGHT:
             return <mark>{children}</mark>;
+        case MARKS.TEXTCOLOR:
+            return <TextColor {...props}>{children}</TextColor>;
         default:
             return next()
     }

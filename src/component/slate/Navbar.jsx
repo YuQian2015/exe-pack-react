@@ -13,6 +13,7 @@ import Heading from "./icons/Heading.jsx";
 import OlList from "./icons/OlList.jsx";
 import UlList from "./icons/UlList.jsx";
 import Align from "./icons/Align.jsx";
+import TextColor from "./icons/TextColor.jsx";
 
 import Image from "./icons/Image.jsx";
 import Publish from "./icons/Publish.jsx";
@@ -33,6 +34,8 @@ export default class Navbar extends React.Component {
             <Strikethrough onChange={onChange} editor={editor} />
             <Underline onChange={onChange} editor={editor} />
             <Code onChange={onChange} editor={editor} />
+
+            <TextColor onChange={onChange} editor={editor}/>
 
             <Align onChange={onChange} editor={editor} />
 

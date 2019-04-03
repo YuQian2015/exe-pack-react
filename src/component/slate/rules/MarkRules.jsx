@@ -10,7 +10,8 @@ const MARK_TAGS = {
     u: MARKS.UNDERLINE,
     del: MARKS.STRIKETHROUGH,
     code: MARKS.CODE,
-    mark: MARKS.HIGHLIGHT
+    mark: MARKS.HIGHLIGHT,
+    TextColor: MARKS.TEXTCOLOR
 };
 
 // Add a new rule that handles marks...
@@ -40,6 +41,8 @@ const markRules = {
                     return <code>{children}</code>;
                 case MARKS.HIGHLIGHT:
                     return <mark>{children}</mark>;
+                case MARKS.TEXTCOLOR:
+                    return <TextColor>{children}</TextColor>;
             }
         }
     },

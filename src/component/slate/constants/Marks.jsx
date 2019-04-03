@@ -4,5 +4,6 @@ module.exports = {
     CODE: 'code',
     STRIKETHROUGH: 'strikethrough',
     UNDERLINE: 'underline',
-    HIGHLIGHT: 'highlight'
+    HIGHLIGHT: 'highlight',
+    TEXTCOLOR: 'textcolor'
 };

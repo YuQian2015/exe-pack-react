@@ -11,7 +11,16 @@
       display: inline-block;
       margin-left: 4px;
     }
+    .toolbar-fscolor{
+      position: relative;
+      .twitter-picker {
+          position: absolute!important;
+          top: 35px!important;
+          left: -7px!important;
+      }
+    }
   }
+
   .input-container {
     overflow: auto;
     background-color: #f8f8f8;
@@ -29,12 +38,79 @@
       margin: 10px auto;
       padding: 80px 60px;
       background: #FFFFFF;
-      img{
-        max-width: 100%;
-        height: 20em;
-      }
-      img.selected {
-        box-shadow: 0 0 0 2px blue;
+      
+      // 选中图片
+      .imgIconDiv{
+        position: relative;
+        display: inline-block;
+        img{
+          max-width: 100%;
+          height: 20em;
+          cursor: move;
+          margin: 1px;
+        }
+        .tools_more{
+          display: none;
+        }
+        &.selected{
+          img {
+            outline: 1px dashed #0096fd;
+          }
+          .imgIcon{
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #0096fd;
+            border: 2px solid #ddd;
+          }
+          .t_l{
+            top: -10px;
+            left: -10px;
+            cursor: nw-resize;
+          }
+          .t_r{
+            top: -10px;
+            right: -10px;
+            cursor: ne-resize;
+          }
+          .b_l{
+            bottom: -10px;
+            left: -10px;
+            cursor: sw-resize;
+          }
+          .b_r{
+            bottom: -10px;
+            right: -10px;
+            cursor: se-resize;
+          }
+          .tools_more{
+            top: 0;
+            right: -50px;
+            position: absolute;
+            width: 40px;
+            display: block;
+
+            color: #111;
+            z-index: 1000;
+            white-space: nowrap;
+            user-select: none;
+            pointer-events: all;
+            box-sizing: border-box;
+            box-shadow: 1px 1px 6px 0 rgba(0,0,0,.2);
+            .tools_item{
+              width: 40px;
+              height: 40px;
+              line-height: 40px;
+              border-bottom: 1px solid rgba(0,0,0,.1);
+            }
+            .tools_item:hover{
+              cursor: pointer;
+              background-color: #f2f2f2;
+            }
+          }
+        }
       }
     }
   }
