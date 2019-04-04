@@ -11,11 +11,13 @@ class Image extends React.PureComponent {
         this.state = {
             showImg : true
         }
-        this.show = this.show.bind(this);
+        this.delete = this.delete.bind(this);
     }
-    show (){  // 删除图片方法待定，这只能支持当前删除，但是缓存中图片还是，如果操作imagelist好像不好同步
-        this.setState({showImg: false})
+
+    delete (){ // 删除图片方法待定，这只能支持当前删除，但不知道imagelist会不会一起改
+        this.props.editor.delete()
     }
+
     render() {
         const {
             attributes, children, node
@@ -37,7 +39,7 @@ class Image extends React.PureComponent {
                         <span className="imgIcon b_r"></span>
                         <div className="tools_more">
                             <Tooltip title="删除" placement="bottom">
-                                <div className="tools_item" onClick={this.show}>
+                                <div className="tools_item" onClick={this.delete}>
                                     <Icon type="delete" />
                                 </div>
                             </Tooltip>

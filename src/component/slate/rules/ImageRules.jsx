@@ -19,10 +19,12 @@ const imageRules =
             }
         },
         serialize(obj, children) {
+            console.log('obj.data',obj.data)
+            const align = {'text-align':obj.data.get('align')}
             if (obj.object === 'block') {
                 switch (obj.type) {
                     case 'image':
-                        return <img src={obj.data.get('src')} alt="图片"/>;
+                        return <img style={align} src={obj.data.get('src')} alt="图片"/>;
                 }
             }
         }
